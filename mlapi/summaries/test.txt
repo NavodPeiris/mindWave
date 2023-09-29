@@ -1,0 +1,12 @@
+patient: saman
+date: 2023-8-25
+
+summary:
+list of moods patient had during day: happy, sad, neutral,
+number of times patient screamed during day: 2
+number of times patient repeated same word during day: 3
+average response time: 25 seconds
+number of times where patient did not respond: 5
+number of times where patient give a related answer: 6
+number of times where patient give an unrelated answer: 4
+

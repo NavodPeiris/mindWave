@@ -1,0 +1,16 @@
+dr_navod (1.6 : 2.2) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.7
+	response is related
+buwaneka (4.9 : 5.4) : කෑවා
+	emotion : neutral
+dr_rushika (7.8 : 8.7) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : Not a looked at
+	response delay : 2.5
+	response is related
+yasan (11.2 : 12.0) : කෑවෙ නෑ
+	emotion : neutral
+
+

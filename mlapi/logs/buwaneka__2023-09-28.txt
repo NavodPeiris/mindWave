@@ -1,0 +1,9 @@
+dr_rushika (0.9 : 1.6) : බෙහෙත් බිව්වා
+	question : The medicine drank
+	response received : Ate
+	response delay : 2.0
+	response is related
+buwaneka (3.6 : 4.1) : කෑවා
+	emotion : neutral
+
+

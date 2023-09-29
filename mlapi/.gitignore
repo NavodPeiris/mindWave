@@ -1,0 +1,8 @@
+__pycache__
+.idea
+venv
+speechbrain
+wav2vec2_checkpoint
+wav2vec2_checkpoints
+llama2
+pretrained_models

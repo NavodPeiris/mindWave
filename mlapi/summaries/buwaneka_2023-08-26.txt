@@ -1,0 +1,12 @@
+patient: buwaneka
+date: 2023-08-26
+
+summary:
+monologue
+list of moods patient had during day: neutral, 
+number of times patient screamed during day: 0
+number of times patient repeated same word during day: 0
+average response time: 0 seconds
+number of times where patient did not respond: 0
+number of times where patient give a related answer: 0
+number of times where patient give an unrelated answer: 0

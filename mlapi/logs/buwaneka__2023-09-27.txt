@@ -1,0 +1,9 @@
+dr_navod (1.6 : 2.2) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.7
+	response is related
+buwaneka (4.9 : 5.5) : කෑවා
+	emotion : neutral
+
+

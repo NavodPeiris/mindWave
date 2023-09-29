@@ -1,0 +1,14 @@
+pyannote
+transformers
+PyAudio
+numpy
+scipy
+google-cloud-speech
+langchain
+ctransformers
+sentence-transformers
+pickle
+librosa
+pydub
+unstructured
+faiss-cpu
