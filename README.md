@@ -1,81 +1,92 @@
-# MindWave 
+# MindWave Project Setup Guide
 
-this is a project that focus on detecting symptoms of mental health patients through analyzing voice data.
+The MindWave project focuses on detecting symptoms of mental health patients through the analysis of voice data. To get started with this project, follow these step-by-step instructions for setting up and running it in Visual Studio Code (VSCode).
 
-We use an ESP32 as the audio streaming device.
+**Note: Ensure that the path to the project folder contains no spaces, as spaces in the path can lead to errors. Also, run VSCode as an Administrator for uninterrupted task execution.**
 
-clone this repo and make sure **path of project folder contain no spaces!!**
+## 1. Running Firmware Part
 
-**if spaces are in path. errors will occur**
+### 1.1 Install Communication Drivers
 
-run this project in vscode
+- Download the communication drivers for ESP32:
+  - Driver Link: [CP210x Universal Windows Driver](https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip)
+  - Extract and save the drivers to a folder.
 
-open vscode as Administrator
+- Connect the ESP32 device to your PC and open the Device Manager.
+- Select the relevant COM port for the ESP32 and click "Update driver."
+- Choose "Browse my computer for drivers" and provide the path to the folder where you extracted the drivers.
+- The driver installation will be completed.
 
-**vscode may need to be run as Administartor for tasks to be done uninterrupted manner** 
+### 1.2 Install PlatformIO Extension in VSCode
 
-1. running Firmware part
+- Install the PlatformIO extension in Visual Studio Code.
 
-- first install drivers for communication between PC and ESP32. without these drivers you will not be able to upload the firmware to ESP32.
+### 1.3 Upload Firmware to ESP32
 
- - driver link - https://www.silabs.com/documents/public/software/CP210x_Universal_Windows_Driver.zip
+- Open VSCode.
+- Navigate to the `firmware` directory.
+- Upload the firmware to the ESP32 device via USB.
+- Wait until the upload finishes.
+- Press the reset button on the ESP32.
 
- - extract and save to a folder
+### 1.4 Connect ESP32 to Wi-Fi
 
- - connect ESp32 and select the relevent COM port on device Manager and click "Update driver"
+- On your PC, search for a Wi-Fi Access Point named **"MindWave_testing."**
+- Click on it and choose the Wi-Fi router you want the ESP32 to connect to.
+- Enter the router's password.
+- The ESP32 will now connect to the selected Wi-Fi router.
 
- - next select "browse my computer for drivers"
+### 1.5 Verify Connectivity
 
- - give path to folder that you extracted your driver.
+- Make sure both your PC and the ESP32 are connected to the same Wi-Fi router.
 
- - now driver will be installed
+## 2. Python App Part
 
-- install PlatformIO extension in vscode
+### 2.1 Set Up Python Environment
 
-- cd firmware
+- Navigate to the `mlapi` directory.
 
-- upload to an ESP32 device via USB
+- Create a virtual environment:
+    - python -m venv venv
 
-- wait until upload finishes
 
-- press reset button on ESP32
+- Activate the virtual environment:
+    - venv/Scripts/activate
 
-- on PC search wifi Access point called **"MindWave_testing"**. click on it and choose wifi router you want ESP32 to connect to. enter the password for router.
 
-- now ESP32 will connect to that wifi router
+- If activated successfully, you will see `(venv)` alongside the path in the terminal.
 
-- make sure both PC and ESP32 is connected to same Wifi router
+### 2.2 Install Required Dependencies
 
-2. Python app part
+- Install the project's Python dependencies by running the following commands:
+    - pip install -r requirements.txt
+    - pip install googletrans==4.0.0-rc1
+    - pip install https://github.com/marianne-m/brouhaha-vad/archive/main.zip
 
-- cd mlapi
+- Clone the SpeechBrain repository and prepare SpeechBrain:
 
-- create a virtual environment
- - python -m venv venv
+    - git clone https://github.com/speechbrain/speechbrain.git
+    - cd speechbrain
+    - pip install -r requirements.txt
+    - pip install --editable .
 
-- activate virtual environment
- - venv/Scripts/activate
- - if activated it shows -> (venv) alongside path in terminal
+- Download the required Llama2 model from:
+[Llama-2-7B-Chat-GGML Model](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q4_0.bin)
+- Store the downloaded Llama2 model into a folder named "llama2" inside the `mlapi` directory.
 
-- install requirements by running following commands:
- - pip install -r requirements.txt
+### 2.3 Permissions Setup
 
-- pip install googletrans==4.0.0-rc1
+- Before running the Python app, ensure that your PC user account has write permissions to the "C:" and "D:" drives.
 
-- pip install https://github.com/marianne-m/brouhaha-vad/archive/main.zip
+## 3. Running the Python App
 
-- clone speechbrain repo and prepare speechbrain:
- - git clone https://github.com/speechbrain/speechbrain.git
- - cd speechbrain
- - pip install -r requirements.txt
- - pip install --editable .
+- Run the `main.py` script:
 
-download required llama2 model from:
-- https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q4_0.bin
-- store downloaded llama2 model into a folder named "llama2" inside mlapi
+    - python main.py
 
-3. before running python app make sure PC user account have write permissions to "C:" and "D:" drives.
 
-4. run main.py
- - python main.py
+Now, you have successfully set up and run the MindWave project for detecting symptoms of mental health patients through voice data analysis.
 
+**Note:** Always run VSCode as an Administrator to avoid any interruptions during the execution of tasks.
+
+Enjoy using MindWave to make a positive impact on mental health!
