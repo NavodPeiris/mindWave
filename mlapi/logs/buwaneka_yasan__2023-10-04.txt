@@ -2,19 +2,19 @@ date: 2023-10-04
 
 log:
 
-dr_navod (14-36-31 : 14-36-32) : කෑවද
+dr_navod (21-08-18 : 21-08-19) : කෑවද
 	question : Do you eat
 	response received : Ate
 	response delay : 2.70 s
 	response is related
-buwaneka (14-36-34 : 14-36-35) : කෑවා
+buwaneka (21-08-21 : 21-08-22) : කෑවා
 	emotion : neutral
-dr_rushika (14-36-37 : 14-36-38) : බෙහෙත් බිව්වද
+dr_rushika (21-08-24 : 21-08-25) : බෙහෙත් බිව්වද
 	question : Have you taken medicine?
 	response received : You are another
 	response delay : 2.60 s
 	response is unrelated
-yasan (14-36-41 : 14-36-42) : ඔයා වෙන
+yasan (21-08-28 : 21-08-29) : ඔයා වෙන
 	emotion : neutral
 
 
