@@ -9,6 +9,10 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
 
     summary_folder = "summaries"
 
+    # Check if source_folder exists, if not create it
+    if not os.path.exists(summary_folder):
+        os.makedirs(summary_folder)
+
     for spk, metric in patient_metrics.items():
         moods = []
         delays = []
@@ -68,7 +72,7 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
         s_entry += "\n"
         s_entry += f"number of times patient screamed during day: {screams}\n"
         s_entry += f"number of times patient repeated same word during day: {repeats}\n"
-        s_entry += f"average response time: {average_response_delay} seconds\n"
+        s_entry += f"average response time: {average_response_delay:.2f} s\n"
         s_entry += f"number of times where patient did not respond: {no_reponses}\n"
         s_entry += f"number of times where patient give a related answer: {related_responses}\n"
         s_entry += f"number of times where patient give an unrelated answer: {unrelated_responses}\n"

@@ -1,5 +1,0 @@
-unknown (4.7 : 5.8) : mama mama mama
-	emotion : neutral
-	repeating same word
-
-

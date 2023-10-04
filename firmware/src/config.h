@@ -12,7 +12,7 @@
 // #define USE_SPIFFS 1
 
 // sample rate for the system
-#define SAMPLE_RATE 44100
+#define SAMPLE_RATE 16000
 
 // Analog microphone settings
 #define ADC_MIC_CHANNEL ADC1_CHANNEL_0

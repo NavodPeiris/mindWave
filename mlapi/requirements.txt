@@ -1,4 +1,4 @@
-pyannote
+pyannote.audio
 transformers
 PyAudio
 numpy
@@ -7,8 +7,10 @@ google-cloud-speech
 langchain
 ctransformers
 sentence-transformers
-pickle
 librosa
 pydub
 unstructured
 faiss-cpu
+langchain
+googletrans
+noisereduce

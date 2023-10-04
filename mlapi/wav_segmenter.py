@@ -25,7 +25,7 @@ def wav_file_segmentation_doc(file_name, segments):
         end = segment[1] * 1000     # end time in miliseconds
         clip = audio[start:end]
         i = i + 1
-        file = os.path.join(folder_name, "segment"+ str(i) + ".wav")
+        file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
         trans = sinhala_transcription(file)
 
@@ -62,7 +62,7 @@ def wav_file_segmentation_patient(file_name, segments):
         end = segment[1] * 1000     # end time in miliseconds
         clip = audio[start:end]
         i = i + 1
-        file = os.path.join(folder_name, "segment"+ str(i) + ".wav")
+        file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
         trans = sinhala_transcription(file)
 

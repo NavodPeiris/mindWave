@@ -7,7 +7,8 @@ import socket
 import threading
 from time import sleep
 import struct
-from datetime import datetime
+from datetime import datetime, timedelta
+import shutil
 
 from hf_access import ACCESS_TOKEN
 from bandpass_filter import bandpass_filter
@@ -19,11 +20,12 @@ from re_encode import re_encode
 from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
+from reduce_noise import reduce_noise
 
 # this will run in a thread reading audio from the tcp socket and buffering it
 buffer = []
 buffering = False
-record_duration = 20  # Duration in seconds
+record_duration = 10  # Duration in seconds
 
 success = False
 
@@ -42,17 +44,18 @@ def read_audio_from_socket():
         start_time = datetime.now()
 
         while True:
-            print("started recording")
+            
             data = sock.recv(4096)
             if data == b"":
                 raise RuntimeError("Lost connection")
             buffer.append(data)
 
             # Check if 20 seconds have elapsed, and if so, stop buffering
-            if (datetime.now() - start_time).total_seconds() >= 20:
+            if (datetime.now() - start_time).total_seconds() >= record_duration:
                 break
 
         success = True
+        print("finished recording successfully")
     except:
         print("failed to connect")
         success = False
@@ -78,6 +81,8 @@ def record():
         # Save file with the current date and time
         current_datetime = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
+        print("started recording")
+
         # Start the thread
         thread.start()
 
@@ -87,20 +92,29 @@ def record():
         if success:
             file_name = f"{current_datetime}.wav"
 
-            output_folder = "work"  # Change this to the path of your "work" folder
-        
+            process_folder = "process"
+            output_folder = "work"  
+            
+            # Check if folder exists, if not create it
             if not os.path.exists(output_folder):
                 os.makedirs(output_folder)
+
+            # Check if folder exists, if not create it
+            if not os.path.exists(process_folder):
+                os.makedirs(process_folder)
         
-            file_name = os.path.join(output_folder, file_name)
+            file = process_folder + "/" + file_name  # write to wav file in process folder
 
             # write the buffered audio to a wave file
-            with wave.open(file_name, "wb") as wave_file:
+            with wave.open(file, "wb") as wave_file:
                 print("writing file")
                 wave_file.setnchannels(1)
                 wave_file.setsampwidth(p.get_sample_size(pyaudio.paInt16))
-                wave_file.setframerate(44100)
+                wave_file.setframerate(16000)
                 wave_file.writeframes(b"".join(buffer))
+            
+            new_file_path = output_folder + "/" + file_name
+            shutil.move(file, new_file_path)   # move to work folder for analyzing
 
 
 #analyze recorded audio files
@@ -110,20 +124,29 @@ def analyze():
         work_folder = "work"
         file_list = os.listdir(work_folder)
 
+        # Check if folder exists, if not create it
+        if not os.path.exists(work_folder):
+            os.makedirs(work_folder)
+
         for file in file_list:
 
-            ########### test this ############
             date = file.split("_")[0]
             time = file.split("_")[1].split(".")[0]
-            print(date)
-            print(time)
-            #################################
+            print("date : ", date)
+            print("time : ", time)
 
             file_name = work_folder + "/" + file
 
             print(file_name)
 
+            # reducing noise in the file
+            reduce_noise(file_name)
+
             voice_detected = voice_activity(file_name)
+
+            date_str = file.split(".")[0]
+            record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
+            print("date time obj : ", record_start)
 
             if voice_detected:
 
@@ -143,7 +166,7 @@ def analyze():
 
                 speaker_tags = []
 
-                pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization",
+                pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1",
                                                 use_auth_token=ACCESS_TOKEN)
 
                 diarization = pipeline(file_name, min_speakers=0, max_speakers=10)
@@ -245,7 +268,13 @@ def analyze():
                         if speaker == speaker_map[spk_tag]:
                             for segment in spk_segments:
                                 if start == segment[0] and end == segment[1]:
-                                    common_segments.append([segment[0], segment[1], segment[2], segment[3], segment[4], segment[5], segment[6], segment[7], segment[8], segment[9], segment[10], speaker])
+                                    newStart = record_start + timedelta(seconds=int(segment[0]))  # adding start time  
+                                    newEnd = record_start + timedelta(seconds=int(segment[1]))    # adding end time
+                                    newStart = newStart.strftime("%Y-%m-%d_%H-%M-%S")            # start object
+                                    newEnd = newEnd.strftime("%Y-%m-%d_%H-%M-%S")                # end object
+                                    start_time = newStart.split("_")[1].split(".")[0]            # start time
+                                    end_time = newEnd.split("_")[1].split(".")[0]                # end time
+                                    common_segments.append([start_time, end_time, segment[2], segment[3], segment[4], segment[5], segment[6], segment[7], segment[8], segment[9], segment[10], speaker])
 
                     
                 for item in common_segments:

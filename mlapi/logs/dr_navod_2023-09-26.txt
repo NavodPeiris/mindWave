@@ -1,5 +1,0 @@
-buwaneka (4.9 : 5.2) : o
-	question : o
-	patient not responding
-
-

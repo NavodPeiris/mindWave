@@ -1,5 +1,6 @@
 import os
 from pyannote.audio import Pipeline
+from datetime import datetime, timedelta
 
 from hf_access import ACCESS_TOKEN
 from bandpass_filter import bandpass_filter
@@ -15,6 +16,10 @@ from write_summary_file import write_summary_file
 file_name = "examples/kawada_kawa_beheth_biwwada_kawe_na.wav"
 
 voice_detected = voice_activity(file_name)
+
+date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
+print("date time obj : ", record_start)
 
 if voice_detected:
 
@@ -34,7 +39,7 @@ if voice_detected:
 
     speaker_tags = []
 
-    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization",
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1",
                                     use_auth_token=ACCESS_TOKEN)
 
     diarization = pipeline(file_name, min_speakers=0, max_speakers=10)
@@ -62,8 +67,8 @@ if voice_detected:
         print(f"start={start}s stop={end}s speaker_{speaker}")
 
         speakers[speaker].append([start, end, speaker])
-       
-         
+    
+        
             
     '''
     print("commons : \n\n")
@@ -136,7 +141,13 @@ if voice_detected:
             if speaker == speaker_map[spk_tag]:
                 for segment in spk_segments:
                     if start == segment[0] and end == segment[1]:
-                        common_segments.append([segment[0], segment[1], segment[2], segment[3], segment[4], segment[5], segment[6], segment[7], segment[8], segment[9], segment[10], speaker])
+                        newStart = record_start + timedelta(seconds=int(segment[0]))  # adding start time  
+                        newEnd = record_start + timedelta(seconds=int(segment[1]))    # adding end time
+                        newStart = newStart.strftime("%Y-%m-%d_%H-%M-%S")            # start object
+                        newEnd = newEnd.strftime("%Y-%m-%d_%H-%M-%S")                # end object
+                        start_time = newStart.split("_")[1].split(".")[0]            # start time
+                        end_time = newEnd.split("_")[1].split(".")[0]                # end time
+                        common_segments.append([start_time, end_time, segment[2], segment[3], segment[4], segment[5], segment[6], segment[7], segment[8], segment[9], segment[10], speaker])
 
         
     for item in common_segments:

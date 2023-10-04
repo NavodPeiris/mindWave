@@ -7,7 +7,14 @@ verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-
 
 voice_folder = "voices"    # this folder act as a voice database
 
+# Check if source_folder exists, if not create it
+if not os.path.exists(voice_folder):
+    os.makedirs(voice_folder)
+
 voices = os.listdir(voice_folder)
+
+for voice in voices:
+    print(voice)
 
 # recognize speaker name
 def speaker_recognition(file_name, segments, wildcards):
@@ -28,14 +35,17 @@ def speaker_recognition(file_name, segments, wildcards):
         end = segment[1] * 1000     # end time in miliseconds
         clip = audio[start:end]
         i = i + 1
-        file = os.path.join(folder_name, file_name.split("/")[-1].split(".")[0] + "_segment"+ str(i) + ".wav")
+        file = folder_name + "/" + file_name.split("/")[-1].split(".")[0] + "_segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
 
         max_score = 0
         person = "unknown"      # if no match to any voice, then return unknown
 
         for voice in voices:
-            voice_file = os.path.join(voice_folder, voice)
+            voice_file = voice_folder + "/" + voice
+
+            print(voice_file)
+
             # compare voice file with audio file
             score, prediction = verification.verify_files(voice_file, file)
             prediction = prediction[0].item()
@@ -55,3 +65,4 @@ def speaker_recognition(file_name, segments, wildcards):
     
     most_common_name = max(name_count, key=name_count.get)
     return most_common_name
+

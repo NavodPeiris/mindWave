@@ -6,3 +6,4 @@ wav2vec2_checkpoint
 wav2vec2_checkpoints
 llama2
 pretrained_models
+audio_cache

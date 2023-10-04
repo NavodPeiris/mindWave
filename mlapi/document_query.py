@@ -7,8 +7,13 @@ from langchain.document_loaders import PyPDFLoader, DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.llms import CTransformers
 import sys
+import os
 
 def document_query(query):
+
+    # Check if folder exists, if not create it
+    if not os.path.exists('summaries'):
+        os.makedirs('summaries')
 
     # Step 1: Load the Text Files from Data Path
     loader=DirectoryLoader('summaries/',

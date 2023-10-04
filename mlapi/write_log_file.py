@@ -15,11 +15,17 @@ def write_log_file(common_segments, patient_metrics):
     #---------------------log file part-------------------------
 
     log_folder = "logs"
+
+    # Check if source_folder exists, if not create it
+    if not os.path.exists(log_folder):
+        os.makedirs(log_folder)
+
     log_file = file_name + "_" + current_datetime + ".txt"
 
     lf=open(os.path.join(log_folder, log_file),"wb")
 
-    entry = ""
+    entry = f"date: {current_datetime}\n\n"
+    entry += "log:\n\n"
     
     for segment in common_segments:
         start = segment[0]
@@ -45,7 +51,7 @@ def write_log_file(common_segments, patient_metrics):
             entry += f"\tquestion : {question}\n"
             if response != "":
                 entry += f"\tresponse received : {response}\n"
-                entry += f"\tresponse delay : {timing}\n"
+                entry += f"\tresponse delay : {timing:.2f} s\n"
                 
                 if related:
                     entry += f"\tresponse is related\n"
