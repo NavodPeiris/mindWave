@@ -1,0 +1,20 @@
+date: 2023-10-05
+
+log:
+
+dr_navod (00-10-41 : 00-10-42) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.70 s
+	response is related
+buwaneka (00-10-44 : 00-10-45) : කෑවා
+	emotion : neutral
+dr_rushika (00-10-47 : 00-10-48) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : You are another
+	response delay : 2.60 s
+	response is unrelated
+yasan (00-10-51 : 00-10-52) : ඔයා වෙන
+	emotion : neutral
+
+
