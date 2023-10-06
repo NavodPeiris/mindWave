@@ -3,11 +3,29 @@
 
 void TCPSocketTransport::begin()
 {
-  Serial.println("Connect to TCP socket microphone.local:5001 to try out TCP socket streaming");
+  //server running on port 5001 to stream audio
   server = new WiFiServer(5001);
   server->begin();
+  Serial.println("Connect to TCP socket microphone.local:5001 to listen to audio stream");
+
+  //server running on port 5002 listen for text
+  textServer = new WiFiServer(5002);
+  textServer->begin();
+  Serial.println("Connect to TCP socket microphone.local:5002 to send a text to ESP32");
+
+  //pins of speaker
+  pinMode(13,OUTPUT);
+  pinMode(25,OUTPUT);
+  digitalWrite(13,LOW);
+
+  digitalWrite(13,HIGH);
+  audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
+  audio.setVolume(100);
+
+  audio.connecttospeech("Hi i am alex", "en"); // Google TTS
 }
 
+//function to send audio data
 void TCPSocketTransport::send(void *data, size_t len)
 {
   // get any new connections
@@ -39,4 +57,24 @@ void TCPSocketTransport::send(void *data, size_t len)
       clients[i] = NULL;
     }
   }
+}
+
+//function for receiving text data
+void TCPSocketTransport::listen_for_text()
+{
+  // Text Server
+  WiFiClient textClient = textServer->available();
+  if (textClient) {
+    Serial.println("New text client connected");
+    while (textClient.connected()) {
+      if (textClient.available()) {
+        String message = textClient.readStringUntil('\n');
+        Serial.println(message);
+      }
+    }
+    textClient.stop();
+    Serial.println("Text client disconnected");
+  }
+
+  //audio.loop();
 }

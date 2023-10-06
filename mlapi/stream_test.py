@@ -108,7 +108,7 @@ def record():
             print("writing file")
             wave_file.setnchannels(1)
             wave_file.setsampwidth(p.get_sample_size(pyaudio.paInt16))
-            wave_file.setframerate(16000)
+            wave_file.setframerate(44100)
             wave_file.writeframes(b"".join(buffer))
         
         new_file_path = output_folder + "/" + file_name

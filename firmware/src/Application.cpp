@@ -1,8 +1,6 @@
 #include <freertos/FreeRTOS.h>
 #include "Application.h"
-#include <I2SMEMSSampler.h>
 #include <ADCSampler.h>
-#include "transports/WebSocketTransport.h"
 #include "transports/TCPSocketTransport.h"
 #include "config.h"
 
@@ -13,15 +11,21 @@ void Application::begin()
 
 
   this->input = input;
-  this->transport1 = new WebSocketTransport();
   this->transport2 = new TCPSocketTransport();
   this->input->start();
-  this->transport1->begin();
   this->transport2->begin();
-  TaskHandle_t task_handle;
-  xTaskCreate(Application::streamer_task, "task", 8192, this, 0, &task_handle);
+
+  //create stream task with highest priority "0"
+  TaskHandle_t stream_task_handle;
+  xTaskCreate(Application::streamer_task, "stream_task", 8192, this, 0, &stream_task_handle);
+
+  //create text task with lower priority "1"
+  TaskHandle_t text_task_handle;
+  xTaskCreate(Application::listen_to_text_task, "text_task", 8192, this, 1, &text_task_handle);
+
 }
 
+//for audio stream
 void Application::streamer_task(void *param)
 {
   Application *app = (Application *)param;
@@ -31,8 +35,19 @@ void Application::streamer_task(void *param)
   {
     // read from the microphone
     int samples_read = app->input->read(samples, 1024);
-    // send to the two transports
-    app->transport1->send(samples, samples_read * sizeof(int16_t));
+    // we use TCP sockets
     app->transport2->send(samples, samples_read * sizeof(int16_t));
+  }
+}
+
+//for listening to text
+void Application::listen_to_text_task(void *param)
+{
+  Application *app = (Application *)param;
+  
+  while (true)
+  {
+    //we use TCP port to listen
+    app->transport2->listen_for_text();
   }
 }

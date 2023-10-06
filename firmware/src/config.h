@@ -19,9 +19,3 @@
 
 // i2s config for using the internal ADC
 extern i2s_config_t i2s_adc_config;
-
-// i2s config for reading from of I2S
-extern i2s_config_t i2s_mic_Config;
-
-// i2s microphone pins - not used for analog input
-extern i2s_pin_config_t i2s_mic_pins;
