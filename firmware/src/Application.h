@@ -11,6 +11,6 @@ private:
 
 public:
   void begin();
-  static void streamer_task(void *param);
-  static void listen_to_text_task(void *param);
+  static void stream_task(void *param);
+  static void listen_for_text_task(void *param);
 };

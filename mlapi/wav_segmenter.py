@@ -1,10 +1,12 @@
 import os
 from pydub import AudioSegment
-from google_transcription import sinhala_transcription
+from google_transcription import sinhala_transcription, english_transcription
 
 from emotion_recognition import emotion_recognition
 from scream_detection import scream_detection
 from repeat_detection import is_repeating
+from document_query import document_query
+from text_to_speech import text_to_speech
 
 # segment according to speaker
 def wav_file_segmentation_doc(file_name, segments):
@@ -30,6 +32,17 @@ def wav_file_segmentation_doc(file_name, segments):
         trans = sinhala_transcription(file)
 
         texts.append([segment[0], segment[1], trans, "", 0, 0])
+
+        # get english translation
+        eng_trans = english_transcription(file)
+        print(eng_trans)
+        
+        # check if "alice" utterance is there
+        if "alice" in eng_trans or "Alice" in eng_trans:
+            # get response from model
+            print("a question for alice")
+            alice_res = document_query(eng_trans)
+            text_to_speech(alice_res)
 
         # if screaming -> 1
         # if reapeating -> 1
@@ -65,6 +78,17 @@ def wav_file_segmentation_patient(file_name, segments):
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
         trans = sinhala_transcription(file)
+
+        # get english translation
+        eng_trans = english_transcription(file)
+        print(eng_trans)
+
+        # check if "alice" utterance is there
+        if "alice" in eng_trans or "Alice" in eng_trans:
+            # get response from model
+            print("a question for alice")
+            alice_res = document_query(eng_trans)
+            text_to_speech(alice_res)
 
         emotion = emotion_recognition(file)
         screaming = scream_detection(file)

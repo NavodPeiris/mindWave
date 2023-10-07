@@ -92,6 +92,7 @@ def record():
 
         process_folder = "process"
         output_folder = "work"  
+        alice_folder = "alice"
         
         # Check if folder exists, if not create it
         if not os.path.exists(output_folder):
@@ -112,18 +113,20 @@ def record():
             wave_file.writeframes(b"".join(buffer))
         
         new_file_path = output_folder + "/" + file_name
-        shutil.copy(file, new_file_path)   # move to work folder for analyzing
-
+        alice_copy = alice_folder + "/" + file_name
+        shutil.copy(file, new_file_path)   # copy to work folder for analyzing
+        os.remove(file)     
 
 #analyze recorded audio files
 def analyze():
 
     work_folder = "work"
-    file_list = os.listdir(work_folder)
 
     # Check if folder exists, if not create it
     if not os.path.exists(work_folder):
         os.makedirs(work_folder)
+    
+    file_list = os.listdir(work_folder)
 
     for file in file_list:
 

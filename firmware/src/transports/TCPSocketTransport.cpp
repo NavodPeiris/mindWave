@@ -1,6 +1,8 @@
 #include <WiFiServer.h>
 #include "TCPSocketTransport.h"
 
+Audio audio(false, 3, I2S_NUM_1);
+
 void TCPSocketTransport::begin()
 {
   //server running on port 5001 to stream audio
@@ -21,8 +23,10 @@ void TCPSocketTransport::begin()
   digitalWrite(13,HIGH);
   audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
   audio.setVolume(100);
-
-  audio.connecttospeech("Hi i am alex", "en"); // Google TTS
+  audio.setConnectionTimeout(10000, 10000);
+  audio.connecttohost("http://192.168.8.141:5001/audio.mp3");
+ 
+  //audio.connecttospeech("Hi i am alice", "en"); // Google TTS
 }
 
 //function to send audio data
@@ -59,9 +63,16 @@ void TCPSocketTransport::send(void *data, size_t len)
   }
 }
 
+void audio_info(const char *info) 
+{
+  Serial.print("audio_info: "); 
+  Serial.println(info);
+}
+
 //function for receiving text data
 void TCPSocketTransport::listen_for_text()
 {
+  /*
   // Text Server
   WiFiClient textClient = textServer->available();
   if (textClient) {
@@ -70,11 +81,14 @@ void TCPSocketTransport::listen_for_text()
       if (textClient.available()) {
         String message = textClient.readStringUntil('\n');
         Serial.println(message);
+        
+        
       }
     }
     textClient.stop();
     Serial.println("Text client disconnected");
   }
+  */
 
-  //audio.loop();
+  audio.loop();
 }

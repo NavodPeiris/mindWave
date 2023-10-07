@@ -13,9 +13,6 @@ if not os.path.exists(voice_folder):
 
 voices = os.listdir(voice_folder)
 
-for voice in voices:
-    print(voice)
-
 # recognize speaker name
 def speaker_recognition(file_name, segments, wildcards):
 

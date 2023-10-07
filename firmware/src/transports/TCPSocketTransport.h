@@ -18,7 +18,6 @@ private:
   WiFiServer *server = NULL;
   WiFiServer *textServer = NULL;
   WiFiClient *clients[MAX_CLIENTS] = {NULL};
-  Audio audio;
 
 public:
   void begin();

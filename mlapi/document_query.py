@@ -9,6 +9,8 @@ from langchain.llms import CTransformers
 import sys
 import os
 
+from text_to_speech import text_to_speech
+
 def document_query(query):
 
     # Check if folder exists, if not create it
@@ -62,7 +64,9 @@ def document_query(query):
     result = response['result']
     return result
 
-'''
-res = document_query("give me summary about patient saman on 25th august of 2023")
+
+res = document_query("give me summary about patient buwaneka on 4th october of 2023")
 print(res)
-'''
+text_to_speech(res)
+
+
