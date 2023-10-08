@@ -16,4 +16,4 @@ googletrans
 noisereduce
 fairseq
 g2p-en
-Flask
+flask[async]

@@ -24,7 +24,6 @@ void TCPSocketTransport::begin()
   audio.setPinout(I2S_BCLK, I2S_LRC, I2S_DOUT);
   audio.setVolume(100);
   audio.setConnectionTimeout(10000, 10000);
-  audio.connecttohost("http://192.168.8.141:5001/audio.mp3");
  
   //audio.connecttospeech("Hi i am alice", "en"); // Google TTS
 }
@@ -72,7 +71,7 @@ void audio_info(const char *info)
 //function for receiving text data
 void TCPSocketTransport::listen_for_text()
 {
-  /*
+  
   // Text Server
   WiFiClient textClient = textServer->available();
   if (textClient) {
@@ -81,14 +80,18 @@ void TCPSocketTransport::listen_for_text()
       if (textClient.available()) {
         String message = textClient.readStringUntil('\n');
         Serial.println(message);
-        
-        
+
+        audio.connecttohost("http://192.168.8.141:5001/audio.mp3");
+
+        String response = "received"; // Your response here
+        textClient.println(response);
       }
+
+      //audio loop until disconnect
+      audio.loop();
     }
     textClient.stop();
     Serial.println("Text client disconnected");
   }
-  */
 
-  audio.loop();
 }

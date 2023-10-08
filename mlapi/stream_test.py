@@ -92,7 +92,6 @@ def record():
 
         process_folder = "process"
         output_folder = "work"  
-        alice_folder = "alice"
         
         # Check if folder exists, if not create it
         if not os.path.exists(output_folder):
