@@ -113,9 +113,7 @@ def record():
             wave_file.writeframes(b"".join(buffer))
         
         new_file_path = output_folder + "/" + file_name
-        alice_copy = alice_folder + "/" + file_name
-        shutil.copy(file, new_file_path)   # copy to work folder for analyzing
-        os.remove(file)     
+        shutil.move(file, new_file_path)   # copy to work folder for analyzing     
 
 #analyze recorded audio files
 def analyze():

@@ -64,9 +64,9 @@ def document_query(query):
     result = response['result']
     return result
 
-
+'''
 res = document_query("give me summary about patient buwaneka on 4th october of 2023")
 print(res)
 text_to_speech(res)
-
+'''
 

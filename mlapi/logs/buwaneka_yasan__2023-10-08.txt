@@ -1,0 +1,20 @@
+date: 2023-10-08
+
+log:
+
+dr_navod (12-08-37 : 12-08-38) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.70 s
+	response is related
+buwaneka (12-08-40 : 12-08-41) : කෑවා
+	emotion : neutral
+dr_rushika (12-08-43 : 12-08-44) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : You are another
+	response delay : 2.60 s
+	response is unrelated
+yasan (12-08-47 : 12-08-48) : ඔයා වෙන
+	emotion : neutral
+
+
