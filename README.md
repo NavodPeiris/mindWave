@@ -45,7 +45,7 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 ### use python 3.9.0 
 ### use latest pip version (or upgrade pip)
 
-### install Microsoft visual studio with C++ development. Ensure tou install this as it is a dependency of a package called 'fairseq'.
+### install Microsoft visual studio with C++ development. Ensure you install this as it is a dependency of a package called 'fairseq'.
 
 ### 2.1 Set Up Python Environment
 
