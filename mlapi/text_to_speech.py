@@ -64,4 +64,6 @@ def send_to_ESP32(message, duration):
 
     sock.close()
 
+'''
 text_to_speech("On October 4th, 2023, patient Buwaneka's mood was neutral. They did not scream or repeat any words during the day. Their average response time was 2.70 seconds, and they did not respond at all 0 times. They gave one related answer and zero unrelated answers.")
+'''
