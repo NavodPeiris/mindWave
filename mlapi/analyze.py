@@ -25,7 +25,7 @@ from reduce_noise import reduce_noise
 # this will run in a thread reading audio from the tcp socket and buffering it
 buffer = []
 buffering = False
-record_duration = 10  # Duration in seconds
+record_duration = 20  # Duration in seconds
 
 success = False
 
