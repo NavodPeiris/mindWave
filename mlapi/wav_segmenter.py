@@ -7,6 +7,7 @@ from scream_detection import scream_detection
 from repeat_detection import is_repeating
 from document_query import document_query
 from text_to_speech import text_to_speech
+from english_transcribe import eng_transcribe
 
 # segment according to speaker
 def wav_file_segmentation_doc(file_name, segments):
@@ -29,18 +30,20 @@ def wav_file_segmentation_doc(file_name, segments):
         i = i + 1
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
-        trans = sinhala_transcription(file)
+        trans = sinhala_transcription(file)  # get sinhala transcription
+
+        # get english transcription
+        eng_trans = eng_transcribe(file)
+        print("English translation : ", eng_trans)
 
         texts.append([segment[0], segment[1], trans, "", 0, 0])
-
-        # get english translation
-        eng_trans = english_transcription(file)
-        print(eng_trans)
         
         # check if "alice" utterance is there
-        if "alice" in eng_trans or "Alice" in eng_trans:
-            # get response from model
-            print("a question for alice")
+        # sometimes "alice" is detected as "at least or At least"
+        if "alice" in eng_trans or "Alice" in eng_trans or "At least" in eng_trans or "at least" in eng_trans:
+            # Remove "Alice" or "alice" from the text
+            eng_trans = eng_trans.replace("Alice", "").replace("alice", "").replace("At least", "").replace("at least", "")
+            print("Question for alice: ", eng_trans)
             alice_res = document_query(eng_trans)
             text_to_speech(alice_res)
 
@@ -77,16 +80,18 @@ def wav_file_segmentation_patient(file_name, segments):
         i = i + 1
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
-        trans = sinhala_transcription(file)
+        trans = sinhala_transcription(file)  # get sinhala transcription
 
         # get english translation
-        eng_trans = english_transcription(file)
-        print(eng_trans)
+        eng_trans = eng_transcribe(file)
+        print("English translation : ", eng_trans)
 
         # check if "alice" utterance is there
-        if "alice" in eng_trans or "Alice" in eng_trans:
-            # get response from model
-            print("a question for alice")
+        # sometimes "alice" is detected as "at least or At least"
+        if "alice" in eng_trans or "Alice" in eng_trans or "At least" in eng_trans or "at least" in eng_trans:
+            # Remove "Alice" or "alice" from the text
+            eng_trans = eng_trans.replace("Alice", "").replace("alice", "").replace("At least", "").replace("at least", "")
+            print("Question for alice: ", eng_trans)
             alice_res = document_query(eng_trans)
             text_to_speech(alice_res)
 

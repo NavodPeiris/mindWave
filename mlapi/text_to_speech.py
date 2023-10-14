@@ -60,6 +60,9 @@ def send_to_ESP32(message, duration):
     except Exception as e:
         print(f"Failed to connect or send message: {e}")
     
+    # add 3 more seconds to fix error
+    duration += 3
+
     time.sleep(duration)
 
     sock.close()

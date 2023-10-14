@@ -79,18 +79,26 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 [Llama-2-7B-Chat-GGML Model](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q4_0.bin)
 - Store the downloaded Llama2 model into a folder named "llama2" inside the `mlapi` directory.
 
+- Download scream detection model from following URL: 
+- place the scream_detection_model.h5 in a folder called "scream_detection_models" inside the mlapi directory
+
 ### 2.3 Permissions Setup
 
 - Before running the Python app, ensure that your PC user account has write permissions to the "C:" and "D:" drives.
 
 ## 3. Running the Python App
+- Run the `alice_stream.py` for running server for `alice`
 
-- Run the `main.py` script:
+    - python alice_stream.py
+
+- in a different terminal, Run the `main.py` script to run recording and analyzing:
 
     - python main.py
 
 
 Now, you have successfully set up and run the MindWave project for detecting symptoms of mental health patients through voice data analysis.
+
+# train_scream_detection folder contains training data and script for training the `Scream Detection model`
 
 **Note:** Always run VSCode as an Administrator to avoid any interruptions during the execution of tasks.
 

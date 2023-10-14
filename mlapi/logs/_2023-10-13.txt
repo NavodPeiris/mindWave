@@ -1,0 +1,7 @@
+date: 2023-10-13
+
+log:
+
+dr_navod (21-32-30 : 21-32-37) :  Alice give me the summary for patient number 4 on October 4th of 2023.
+
+

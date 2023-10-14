@@ -13,7 +13,7 @@ from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 
-file_name = "examples/kawada_kawa_beheth_biwwada_kawe_na.wav"
+file_name = "test_alice.wav"
 
 voice_detected = voice_activity(file_name)
 

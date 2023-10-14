@@ -1,4 +1,4 @@
-patient: buwaneka
+patient number: 4
 date: 2023-10-04
 
 summary:

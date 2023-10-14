@@ -42,7 +42,7 @@ def document_query(query):
                             'temperature':0.01})
 
     template="""Use the following pieces of information to answer the user's question.
-    user ask for a summary of information about a mental health patient's activities during a specific day
+    user ask for a summary of information about a mental health patient's activities during a specific day. please return list of moods patient had during day, number of times screamed, number of times patient repeated same word, average response time, number of times patient did not respond is ?, number of times patient give a related answer, number of times patient give an unrelated answer.
     If you dont know the answer just say you don't know, don't try to make up an answer.
 
     Context:{context}
@@ -62,11 +62,12 @@ def document_query(query):
 
     response=chain({'query': query})
     result = response['result']
+    print("Alice Says: ", result)
     return result
 
 '''
-res = document_query("give me summary about patient buwaneka on 4th october of 2023")
-print(res)
-text_to_speech(res)
+res = document_query("give me summary about patient number 4 on 4th of october 2023")
+#text_to_speech(res)
 '''
+
 
