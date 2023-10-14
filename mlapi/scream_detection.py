@@ -34,6 +34,6 @@ def scream_detection(filename):
         print("No scream detected")
         return False
     
-'''
-scream_detection("examples/scream/girl_scream.wav")
-''' 
+
+scream_detection("examples/scream/man_scream.wav")
+ 
