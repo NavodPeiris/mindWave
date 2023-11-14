@@ -2,6 +2,7 @@ from speechbrain.speechbrain.pretrained import SpeakerRecognition
 import os
 from pydub import AudioSegment
 from collections import defaultdict
+from name_ID_mapping import ID_details
 
 verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")
 
@@ -61,5 +62,10 @@ def speaker_recognition(file_name, segments, wildcards):
         os.remove(file)
     
     most_common_name = max(name_count, key=name_count.get)
-    return most_common_name
+    if most_common_name == "unknown":
+        person_details = {"name": "unknown", "type": "patient"}
+    else:
+        person_details = ID_details[most_common_name]
+        
+    return person_details
 

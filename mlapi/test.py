@@ -13,7 +13,7 @@ from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 
-file_name = "test_alice.wav"
+file_name = "examples/buwaneka.wav"
 
 voice_detected = voice_activity(file_name)
 
@@ -35,7 +35,7 @@ if voice_detected:
     # if wav file is not having 16-bit PCM encoding, make it 16 bit
     # because if it is 8-bit then it will not work with google speech-to-text
     re_encode(file_name)
-    
+
 
     speaker_tags = []
 
@@ -67,7 +67,7 @@ if voice_detected:
         print(f"start={start}s stop={end}s speaker_{speaker}")
 
         speakers[speaker].append([start, end, speaker])
-    
+
         
             
     '''
@@ -95,14 +95,15 @@ if voice_detected:
 
     for spk_tag, spk_segments in speakers.items():
         spk = speaker_recognition(file_name, spk_segments, identified)
-        identified.append(spk)
-        speaker_map[spk_tag] = spk
-        print(f"{spk_tag} is {spk}")
-        if "dr_" in spk:
-            print(f"speaker {spk} is a doctor")
+        spk_name = spk["name"]
+        identified.append(spk_name)
+        speaker_map[spk_tag] = spk_name
+        print(f"{spk_tag} is {spk_name}")
+        if spk["type"] == "doctor":
+            print(f"speaker {spk_name} is a doctor")
             doctors.append(spk)
         else:
-            print(f"speaker {spk} is a patient")
+            print(f"speaker {spk_name} is a patient")
             patients.append(spk)
 
     # fixing the speaker names in common

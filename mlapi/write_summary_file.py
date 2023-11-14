@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from name_ID_mapping import ID_details
 
 def write_summary_file(common_segments, patient_metrics, speaker_tags):
 
@@ -55,8 +56,14 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
         summary_file = spk + "_" + current_datetime + ".txt"
 
         sf=open(os.path.join(summary_folder, summary_file),"wb")
+
+        spk_number = "unknown"
+
+        for key, details in ID_details.items():
+            if details["name"] == spk:
+                spk_number = key
         
-        s_entry = f"patient: {spk}\ndate: {current_datetime}\n\n"
+        s_entry = f"patient number: {spk_number}\npatient name: {spk}\ndate: {current_datetime}\n\n"
         s_entry += "summary:\n"
         # conversation or a monologue
         if len(speaker_tags) > 1:
