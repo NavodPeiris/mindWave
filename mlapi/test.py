@@ -23,7 +23,7 @@ date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
 print("date time obj : ", record_start)
 
-if True:
+if sound == "Speech":
 
     # <-------------------Processing file-------------------------->
 

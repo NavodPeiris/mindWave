@@ -21,6 +21,7 @@ from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 from reduce_noise import reduce_noise
+from sound_classifier import sound_classifier
 
 # this will run in a thread reading audio from the tcp socket and buffering it
 buffer = []
@@ -139,13 +140,13 @@ def analyze():
         # reducing noise in the file
         reduce_noise(file_name)
 
-        voice_detected = voice_activity(file_name)
+        sound = sound_classifier(file_name)
 
-        date_str = file.split(".")[0]
+        date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
         print("date time obj : ", record_start)
 
-        if voice_detected:
+        if sound == "Speech":
 
             # <-------------------Processing file-------------------------->
 
@@ -163,7 +164,7 @@ def analyze():
 
             speaker_tags = []
 
-            pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1",
+            pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.0",
                                             use_auth_token=ACCESS_TOKEN)
 
             diarization = pipeline(file_name, min_speakers=0, max_speakers=10)
@@ -216,24 +217,53 @@ def analyze():
             '''
 
             identified = []
+            prev_spk = ""
 
             for spk_tag, spk_segments in speakers.items():
-                spk = speaker_recognition(file_name, spk_segments, identified)
-                spk_name = spk["name"]
-                identified.append(spk_name)
-                speaker_map[spk_tag] = spk_name
-                print(f"{spk_tag} is {spk_name}")
-                if spk["type"] == "doctor":
-                    print(f"speaker {spk_name} is a doctor")
-                    doctors.append(spk)
+                spk_details = speaker_recognition(file_name, spk_segments, identified, prev_spk)
+                spk = spk_details["name"]
+                identified.append(spk)
+                speaker_map[spk_tag] = spk
+                print(f"{spk_tag} is {spk}")
+                if spk_details["type"] == "doctor":
+                    print(f"speaker {spk} is a doctor")
+                    if spk not in doctors:
+                        doctors.append(spk)
                 else:
-                    print(f"speaker {spk_name} is a patient")
-                    patients.append(spk)
+                    print(f"speaker {spk} is a patient")
+                    if spk not in patients:
+                        patients.append(spk)
 
+                if spk in patients:
+                    prev_spk = spk
+
+            print(f"before : {speaker_map}")
+
+            keys_to_remove = []
+            merged = []
+
+            # merging same speakers
+            for spk_tag1, spk_segments1 in speakers.items():
+                for spk_tag2, spk_segments2 in speakers.items():
+                    if spk_tag1 not in merged and spk_tag2 not in merged and spk_tag1 != spk_tag2 and speaker_map[spk_tag1] == speaker_map[spk_tag2]:
+                        for segment in spk_segments2:
+                            speakers[spk_tag1].append(segment)
+
+                        merged.append(spk_tag1)
+                        merged.append(spk_tag2)
+                        keys_to_remove.append(spk_tag2)
+            
             # fixing the speaker names in common
             for segment in common:
                 speaker = segment[2]
                 segment[2] = speaker_map[speaker]
+
+            for key in keys_to_remove:
+                print(f"removing {key}")
+                del speakers[key]
+                del speaker_map[key]
+
+            print(f"after : {speaker_map}")
 
             patient_metrics = {}        # contain counts of screams and repeats
 
@@ -247,10 +277,11 @@ def analyze():
                     details = wav_file_segmentation_patient(file_name, spk_segments)
                     patient_segment = details[0]
                     speakers[spk_tag] = patient_segment
-                    screams = details[1]
+                    distress_count = details[1]
                     repeats = details[2]
-                    metric = [screams, repeats]
+                    metric = [distress_count, repeats]
                     patient_metrics[spk] = metric
+                    
 
             # detect unintelligent speech 
             speakers = unintelligent_speech(speakers, speaker_map, doctors, patients)
@@ -288,7 +319,8 @@ def analyze():
             write_summary_file(common_segments, patient_metrics, speaker_tags)   
 
         else:
-            print("no voice activity detected")
+            print("no speech detected")
+            print(f"Sound detected: {sound}")
 
         # Delete the processed file
         os.remove(file_name)
