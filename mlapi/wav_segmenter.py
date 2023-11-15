@@ -58,9 +58,9 @@ def wav_file_segmentation_doc(file_name, segments):
 
     return texts
 
-
 # segment according to speaker
 def wav_file_segmentation_patient(file_name, segments):
+
     # Load the WAV file
     audio = AudioSegment.from_file(file_name, format="wav")
 
@@ -111,6 +111,7 @@ def wav_file_segmentation_patient(file_name, segments):
             emotion = emotion_recognition(file)
 
         distress = 0   # if distressed or not
+        repeating = 0
 
         if ("Groan" in sound) or ("Crying, sobbing" in sound):
             distress = 1
@@ -118,8 +119,7 @@ def wav_file_segmentation_patient(file_name, segments):
 
         if reps > 0:
             repeating = 1
-        
-        repetitions += reps
+            repetitions += reps
         
         texts.append([segment[0], segment[1], trans, emotion, distress, repeating])
 

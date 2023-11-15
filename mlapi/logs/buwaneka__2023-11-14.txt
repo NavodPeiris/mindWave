@@ -1,9 +1,0 @@
-date: 2023-11-14
-
-log:
-
-buwaneka (21-14-56 : 21-14-59) : කෑවද නම් ඔලුව රිදෙනවා මම බෙහෙත් බිව්වා
-	emotion : neutral
-	screaming
-
-

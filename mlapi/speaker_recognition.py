@@ -3,6 +3,7 @@ import os
 from pydub import AudioSegment
 from collections import defaultdict
 from name_ID_mapping import ID_details
+from sound_classifier import sound_classifier
 
 verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")
 
@@ -15,9 +16,9 @@ if not os.path.exists(voice_folder):
 voices = os.listdir(voice_folder)
 
 # recognize speaker name
-def speaker_recognition(file_name, segments, wildcards):
+def speaker_recognition(file_name, segments, wildcards, prev_spk):
 
-    name_count = defaultdict(int)
+    Id_count = defaultdict(int)
     # Load the WAV file
     audio = AudioSegment.from_file(file_name, format="wav")
 
@@ -27,6 +28,7 @@ def speaker_recognition(file_name, segments, wildcards):
         os.makedirs(folder_name)
 
     i = 0
+    distress_count = 0
 
     for segment in segments:
         start = segment[0] * 1000   # start time in miliseconds
@@ -38,6 +40,10 @@ def speaker_recognition(file_name, segments, wildcards):
 
         max_score = 0
         person = "unknown"      # if no match to any voice, then return unknown
+
+        sound = sound_classifier(file)
+        if ("Groan" in sound) or ("Crying, sobbing" in sound):
+            distress_count += 1
 
         for voice in voices:
             voice_file = voice_folder + "/" + voice
@@ -56,16 +62,21 @@ def speaker_recognition(file_name, segments, wildcards):
                     if speakerId not in wildcards:        # speaker_00 cannot be speaker_01
                         person = speakerId
 
-        name_count[person] += 1
+        Id_count[person] += 1
 
         # Delete the WAV file after processing
         os.remove(file)
     
-    most_common_name = max(name_count, key=name_count.get)
-    if most_common_name == "unknown":
+    most_common_Id = max(Id_count, key=Id_count.get)
+    if most_common_Id == "unknown" and distress_count > 0 and prev_spk != "" and prev_spk != "unknown":
+        for id, details in ID_details.items():
+            if details["name"] == prev_spk:
+                most_common_Id = id
+        person_details = ID_details[most_common_Id]
+    elif most_common_Id == "unknown":
         person_details = {"name": "unknown", "type": "patient"}
     else:
-        person_details = ID_details[most_common_name]
+        person_details = ID_details[most_common_Id]
         
     return person_details
 
