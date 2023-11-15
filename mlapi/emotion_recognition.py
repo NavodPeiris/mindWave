@@ -9,3 +9,4 @@ def emotion_recognition(file):
     key = text_lab[0]
     emotion = emotions[key]
     return emotion
+

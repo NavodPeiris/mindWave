@@ -8,6 +8,7 @@ from repeat_detection import is_repeating
 from document_query import document_query
 from text_to_speech import text_to_speech
 from english_transcribe import eng_transcribe
+from sound_classifier import sound_classifier
 
 # segment according to speaker
 def wav_file_segmentation_doc(file_name, segments):
@@ -24,6 +25,9 @@ def wav_file_segmentation_doc(file_name, segments):
     i = 0
 
     for segment in segments:
+
+        emotion = ""
+
         start = segment[0] * 1000   # start time in miliseconds
         end = segment[1] * 1000     # end time in miliseconds
         clip = audio[start:end]
@@ -36,7 +40,7 @@ def wav_file_segmentation_doc(file_name, segments):
         eng_trans = eng_transcribe(file)
         print("English translation : ", eng_trans)
 
-        texts.append([segment[0], segment[1], trans, "", 0, 0])
+        texts.append([segment[0], segment[1], trans, emotion, 0, 0])
         
         # check if "alice" utterance is there
         # sometimes "alice" is detected as "at least or At least"
@@ -47,9 +51,7 @@ def wav_file_segmentation_doc(file_name, segments):
             alice_res = document_query(eng_trans)
             text_to_speech(alice_res)
 
-        # if screaming -> 1
-        # if reapeating -> 1
-        # return -> [[start time, end time, transcript, emotion, screaming, repeating], [start time, end time, transcript,..], ..],
+        # return -> [[start time, end time, transcript, emotion, distress, repeating], [start time, end time, transcript,..], ..],
 
         # Delete the WAV file after processing
         os.remove(file)
@@ -63,8 +65,9 @@ def wav_file_segmentation_patient(file_name, segments):
     audio = AudioSegment.from_file(file_name, format="wav")
 
     texts = []
-    screams = 0
-    repeats = 0
+    
+    distress_count = 0
+    repetitions = 0
 
     folder_name = "patient"
 
@@ -74,6 +77,9 @@ def wav_file_segmentation_patient(file_name, segments):
     i = 0
 
     for segment in segments:
+
+        emotion = ""
+
         start = segment[0] * 1000   # start time in miliseconds
         end = segment[1] * 1000     # end time in miliseconds
         clip = audio[start:end]
@@ -82,6 +88,7 @@ def wav_file_segmentation_patient(file_name, segments):
         clip.export(file, format="wav")
         trans = sinhala_transcription(file)  # get sinhala transcription
 
+        
         # get english translation
         eng_trans = eng_transcribe(file)
         print("English translation : ", eng_trans)
@@ -95,27 +102,32 @@ def wav_file_segmentation_patient(file_name, segments):
             alice_res = document_query(eng_trans)
             text_to_speech(alice_res)
 
-        emotion = emotion_recognition(file)
-        screaming = scream_detection(file)
-        repeating = is_repeating(trans)
 
-        if screaming:
-            screams += 1
-        if repeating:
-            repeats += 1
+        sound = sound_classifier(file)
+        reps = is_repeating(trans)
         
-        screaming = int(screaming)   # true -> 1
-        repeating = int(repeating)   # true -> 1 
+        #emotion recognition only works is there is speech
+        if sound == "Speech": 
+            emotion = emotion_recognition(file)
 
-        texts.append([segment[0], segment[1], trans, emotion, screaming, repeating])
+        distress = 0   # if distressed or not
 
-        # if screaming -> 1
-        # if reapeating -> 1
-        # return -> [[start time, end time, transcript, emotion, screaming, repeating], [start time, end time, transcript,..], ..],
+        if ("Groan" in sound) or ("Crying, sobbing" in sound):
+            distress = 1
+            distress_count += 1
+
+        if reps > 0:
+            repeating = 1
+        
+        repetitions += reps
+        
+        texts.append([segment[0], segment[1], trans, emotion, distress, repeating])
+
+        # return -> [[start time, end time, transcript, emotion, distress, repeating], [start time, end time, transcript,..], ..],
         #            scream count
         #            repeat count
 
         # Delete the WAV file after processing
         os.remove(file)
 
-    return texts, screams, repeats
+    return texts, distress_count, repetitions

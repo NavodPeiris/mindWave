@@ -13,15 +13,17 @@ from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 
-file_name = "examples/buwaneka.wav"
+from sound_classifier import sound_classifier
 
-voice_detected = voice_activity(file_name)
+file_name = "examples/repeat/sorry_repeated.wav"
+
+sound = sound_classifier(file_name)
 
 date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
 print("date time obj : ", record_start)
 
-if voice_detected:
+if sound == "Speech":
 
     # <-------------------Processing file-------------------------->
 
@@ -123,9 +125,9 @@ if voice_detected:
             details = wav_file_segmentation_patient(file_name, spk_segments)
             patient_segment = details[0]
             speakers[spk_tag] = patient_segment
-            screams = details[1]
+            distress_count = details[1]
             repeats = details[2]
-            metric = [screams, repeats]
+            metric = [distress_count, repeats]
             patient_metrics[spk] = metric
 
     # detect unintelligent speech 
@@ -164,4 +166,5 @@ if voice_detected:
     write_summary_file(common_segments, patient_metrics, speaker_tags)   
 
 else:
-    print("no voice activity detected")
+    print("no speech detected")
+    print(f"Sound detected: {sound}")

@@ -32,7 +32,7 @@ def write_log_file(common_segments, patient_metrics):
         end = segment[1]
         text = segment[2]
         emotion = segment[3]
-        screaming = segment[4]
+        distressed = segment[4]
         repeating = segment[5]
         question = segment[6]
         response = segment[7]
@@ -43,8 +43,8 @@ def write_log_file(common_segments, patient_metrics):
         entry += f"{speaker} ({start} : {end}) : {text}\n"
         if emotion != "":
             entry += f"\temotion : {emotion}\n"
-        if screaming:
-            entry += f"\tscreaming\n"
+        if distressed:
+            entry += f"\tdistressed\n"
         if repeating:
             entry += f"\trepeating same word\n"
         if question != "":

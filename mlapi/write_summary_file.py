@@ -50,7 +50,7 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
         if len(delays) > 0:
             average_response_delay = sum(delays) / len(delays)
 
-        screams = metric[0]
+        distress_count = metric[0]
         repeats = metric[1]
 
         summary_file = spk + "_" + current_datetime + ".txt"
@@ -77,7 +77,7 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
         for mood in moods:
             s_entry += f"{mood}, "
         s_entry += "\n"
-        s_entry += f"number of times patient screamed during day: {screams}\n"
+        s_entry += f"number of times patient was distressed during day: {distress_count}\n"
         s_entry += f"number of times patient repeated same word during day: {repeats}\n"
         s_entry += f"average response time: {average_response_delay:.2f} seconds\n"
         s_entry += f"number of times patient did not respond: {no_reponses}\n"
