@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 from name_ID_mapping import ID_details
 
-def write_summary_file(common_segments, patient_metrics, speaker_tags):
+def write_summary_file(common_segments, patient_metrics, speaker_tags, is_screaming):
 
     current_datetime = datetime.now().strftime("%Y-%m-%d")
 
@@ -77,7 +77,7 @@ def write_summary_file(common_segments, patient_metrics, speaker_tags):
         for mood in moods:
             s_entry += f"{mood}, "
         s_entry += "\n"
-        s_entry += f"number of times patient was distressed during day: {distress_count}\n"
+        s_entry += f"did patient screamed: {is_screaming}\n"
         s_entry += f"number of times patient repeated same word during day: {repeats}\n"
         s_entry += f"average response time: {average_response_delay:.2f} seconds\n"
         s_entry += f"number of times patient did not respond: {no_reponses}\n"

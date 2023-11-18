@@ -66,34 +66,35 @@ def unintelligent_speech(speakers, speaker_map, doctors, patients):
                                         answering[spk_tag] = a_start
                                         break
                         
-                        # patient who answer first is actually answering the question
-                        answering_patient = min(answering, key=answering.get)
-                        ans_time = answering[answering_patient]
-                        pat_name = speaker_map[answering_patient]
+                        if len(answering) > 0:
+                            # patient who answer first is actually answering the question
+                            answering_patient = min(answering, key=answering.get)
+                            ans_time = answering[answering_patient]
+                            pat_name = speaker_map[answering_patient]
 
-                        doc_segment[10] = pat_name
+                            doc_segment[10] = pat_name
 
-                        pat_segments = edited_speakers[answering_patient]
+                            pat_segments = edited_speakers[answering_patient]
 
-                        for pat_segment in pat_segments:
-                            if pat_segment[0] == ans_time:
-                                si_answer = pat_segment[2]     # sinhala answer
-                                answer = translate_sinhala_to_english(si_answer)   # english answer
-                                time_to_answer = ans_time - q_end
-                                doc_segment[7] = answer
-                                doc_segment[8] = time_to_answer
+                            for pat_segment in pat_segments:
+                                if pat_segment[0] == ans_time:
+                                    si_answer = pat_segment[2]     # sinhala answer
+                                    answer = translate_sinhala_to_english(si_answer)   # english answer
+                                    time_to_answer = ans_time - q_end
+                                    doc_segment[7] = answer
+                                    doc_segment[8] = time_to_answer
 
-                                r = is_related(question, answer)
-                                print(r)
+                                    r = is_related(question, answer)
+                                    print(r)
 
-                                if 'True' in r:
-                                    # patient give a related answer
-                                    doc_segment[9] = 1
-                                    break
-                                else:
-                                    # patient give unrelated answer
-                                    doc_segment[9] = 0
-                                    break
+                                    if 'True' in r:
+                                        # patient give a related answer
+                                        doc_segment[9] = 1
+                                        break
+                                    else:
+                                        # patient give unrelated answer
+                                        doc_segment[9] = 0
+                                        break
                         
                         # if no answer was found then answer flag will be empty
 

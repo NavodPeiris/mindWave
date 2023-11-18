@@ -4,6 +4,7 @@ from pydub import AudioSegment
 from collections import defaultdict
 from name_ID_mapping import ID_details
 from sound_classifier import sound_classifier
+from scream_detection import scream_detection
 
 verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")
 
@@ -41,8 +42,8 @@ def speaker_recognition(file_name, segments, wildcards, prev_spk):
         max_score = 0
         person = "unknown"      # if no match to any voice, then return unknown
 
-        sound = sound_classifier(file)
-        if ("Groan" in sound) or ("Crying, sobbing" in sound):
+        is_screaming = scream_detection(file)
+        if is_screaming:
             distress_count += 1
 
         for voice in voices:

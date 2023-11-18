@@ -1,0 +1,13 @@
+patient number: 3
+patient name: yasan
+date: 2023-11-18
+
+summary:
+conversation
+list of moods patient had during day: neutral, 
+number of times patient was distressed during day: 0
+number of times patient repeated same word during day: 0
+average response time: 2.60 seconds
+number of times patient did not respond: 0
+number of times patient give a related answer: 0
+number of times patient give an unrelated answer: 1

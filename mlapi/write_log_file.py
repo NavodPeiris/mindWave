@@ -44,7 +44,7 @@ def write_log_file(common_segments, patient_metrics):
         if emotion != "":
             entry += f"\temotion : {emotion}\n"
         if distressed:
-            entry += f"\tdistressed\n"
+            entry += f"\tscreaming\n"
         if repeating:
             entry += f"\trepeating same word\n"
         if question != "":

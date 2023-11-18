@@ -9,6 +9,7 @@ from document_query import document_query
 from text_to_speech import text_to_speech
 from english_transcribe import eng_transcribe
 from sound_classifier import sound_classifier
+from scream_detection import scream_detection
 
 # segment according to speaker
 def wav_file_segmentation_doc(file_name, segments):
@@ -103,17 +104,17 @@ def wav_file_segmentation_patient(file_name, segments):
             text_to_speech(alice_res)
 
 
-        sound = sound_classifier(file)
+        is_screaming = scream_detection(file)
         reps = is_repeating(trans)
         
-        #emotion recognition only works is there is speech
-        if sound == "Speech": 
+        # emotion recognition only works is there is speech
+        if not is_screaming: 
             emotion = emotion_recognition(file)
 
         distress = 0   # if distressed or not
         repeating = 0
 
-        if ("Groan" in sound) or ("Crying, sobbing" in sound):
+        if is_screaming:
             distress = 1
             distress_count += 1
 

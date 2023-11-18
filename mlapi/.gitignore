@@ -7,4 +7,3 @@ wav2vec2_checkpoints
 llama2
 pretrained_models
 audio_cache
-scream_detection_models/*.h5

@@ -16,4 +16,7 @@ def voice_activity(file):
         print(f"{t:8.3f} vad={100*vad:.0f}% snr={snr:.0f} c50={c50:.0f}")
         if vad >= 0.3:
             return True
-    return True
+    return False
+
+
+voice_activity("recorded_samples/2023-11-18_20-38-45.wav")

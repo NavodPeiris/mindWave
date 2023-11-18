@@ -14,16 +14,19 @@ from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 
 from sound_classifier import sound_classifier
+from scream_detection import scream_detection
 
-file_name = "examples/buwaneka_rage.wav"
+file_name = "recorded_samples/buwaneka_2760YmUD.wav"
 
-sound = sound_classifier(file_name)
+voice_detected = voice_activity(file_name)
+
+is_screaming = scream_detection(file_name)
 
 date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
 print("date time obj : ", record_start)
 
-if sound == "Speech":
+if voice_detected:
 
     # <-------------------Processing file-------------------------->
 
@@ -41,7 +44,7 @@ if sound == "Speech":
 
     speaker_tags = []
 
-    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.0",
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1",
                                     use_auth_token=ACCESS_TOKEN)
 
     diarization = pipeline(file_name, min_speakers=0, max_speakers=10)
@@ -193,8 +196,8 @@ if sound == "Speech":
     write_log_file(common_segments, patient_metrics)  
 
     # write summary file
-    write_summary_file(common_segments, patient_metrics, speaker_tags)   
+    write_summary_file(common_segments, patient_metrics, speaker_tags, is_screaming)   
 
 else:
     print("no speech detected")
-    print(f"Sound detected: {sound}")
+    
