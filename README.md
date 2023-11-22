@@ -95,7 +95,7 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 
     - python main.py
 
-## 3. Running the Python App in test mode (using recorded files)
+## 4. Running the Python App in test mode (using recorded files)
 - Run the `test.py` with any audio file as input
 
 Now, you have successfully set up and run the MindWave project for detecting symptoms of mental health patients through voice data analysis.
