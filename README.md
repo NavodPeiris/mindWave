@@ -86,7 +86,7 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 
 - Before running the Python app, ensure that your PC user account has write permissions to the "C:" and "D:" drives.
 
-## 3. Running the Python App
+## 3. Running the Python App in Production (if streaming device available)
 - Run the `alice_stream.py` for running server for `alice`
 
     - python alice_stream.py
@@ -95,6 +95,8 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 
     - python main.py
 
+## 3. Running the Python App in test mode (using recorded files)
+- Run the `test.py` with any audio file as input
 
 Now, you have successfully set up and run the MindWave project for detecting symptoms of mental health patients through voice data analysis.
 

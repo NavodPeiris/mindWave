@@ -17,7 +17,6 @@ def sinhala_transcription(file_name):
     # english = en-US
 
     config = speech.RecognitionConfig(
-        #sample_rate_hertz=44100,
         enable_automatic_punctuation=True,
         language_code='si-LK',
         audio_channel_count=1
@@ -49,7 +48,6 @@ def english_transcription(file_name):
     # english = en-US
 
     config = speech.RecognitionConfig(
-        #sample_rate_hertz=44100,
         enable_automatic_punctuation=True,
         language_code='en-US',
         audio_channel_count=1

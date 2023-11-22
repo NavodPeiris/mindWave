@@ -3,7 +3,7 @@ import os
 from pydub import AudioSegment
 from collections import defaultdict
 from name_ID_mapping import ID_details
-from sound_classifier import sound_classifier
+
 from scream_detection import scream_detection
 
 verification = SpeakerRecognition.from_hparams(source="speechbrain/spkrec-ecapa-voxceleb", savedir="pretrained_models/spkrec-ecapa-voxceleb")

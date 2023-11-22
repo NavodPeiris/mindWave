@@ -26,6 +26,7 @@ def eng_transcribe(file):
     transcription = processor.batch_decode(predicted_ids, skip_special_tokens=True)
 
     return transcription[0]
+
 '''
 trans = eng_transcribe("test_alice.wav")
 print(trans)

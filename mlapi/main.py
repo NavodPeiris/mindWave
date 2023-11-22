@@ -3,3 +3,5 @@ import threading
 
 threading.Thread(target=record).start()  # record sound independently
 threading.Thread(target=analyze).start() # process recorded files independently
+
+# run this file for running system in production

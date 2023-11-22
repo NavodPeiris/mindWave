@@ -1,0 +1,20 @@
+date: 2023-11-22
+
+log:
+
+dr_navod (19-05-35 : 19-05-36) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.70 s
+	response is related
+unknown (19-05-38 : 19-05-39) : කෑවා
+	screaming
+dr_rushika (19-05-41 : 19-05-42) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : You are another
+	response delay : 2.60 s
+	response is unrelated
+yasan (19-05-45 : 19-05-46) : ඔයා වෙන
+	emotion : neutral
+
+

@@ -13,7 +13,6 @@ from convert_to_mono import convert_to_mono
 from write_log_file import write_log_file
 from write_summary_file import write_summary_file
 
-from sound_classifier import sound_classifier
 from scream_detection import scream_detection
 
 '''
@@ -23,17 +22,13 @@ examples/kawada_kawa_beheth_biwwada_kawe_na.wav
 examples/repeat/sorry_repeated.wav
 '''
 
-file_name = "examples/kawada_kawa_beheth_biwwada_kawe_na.wav"
+def core_analysis(file_name):
 
-voice_detected = voice_activity(file_name)
+    is_screaming = scream_detection(file_name)
 
-is_screaming = scream_detection(file_name)
-
-date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
-print("date time obj : ", record_start)
-
-if voice_detected:
+    date_str = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    record_start = datetime.strptime(date_str, "%Y-%m-%d_%H-%M-%S")
+    print("date time obj : ", record_start)
 
     # <-------------------Processing file-------------------------->
 
@@ -205,6 +200,7 @@ if voice_detected:
     # write summary file
     write_summary_file(common_segments, patient_metrics, speaker_tags, is_screaming)   
 
-else:
-    print("no speech detected")
-    
+
+# run this for testing   
+
+core_analysis("examples/long/english_long.wav")
