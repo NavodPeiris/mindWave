@@ -96,7 +96,7 @@ def wav_file_segmentation_patient(file_name, segments):
 
         # check if "alice" utterance is there
         # sometimes "alice" is detected as "at least or At least"
-        if "alice" in eng_trans or "Alice" in eng_trans or "At least" in eng_trans or "at least" in eng_trans:
+        if "alice" in eng_trans or "Alice" in eng_trans or "At least" in eng_trans or "at least" in eng_trans or "patient number" in eng_trans:
             # Remove "Alice" or "alice" from the text
             eng_trans = eng_trans.replace("Alice", "").replace("alice", "").replace("At least", "").replace("at least", "")
             print("Question for alice: ", eng_trans)
@@ -104,20 +104,23 @@ def wav_file_segmentation_patient(file_name, segments):
             text_to_speech(alice_res)
 
 
-        is_screaming = scream_detection(file)
+        #is_screaming = scream_detection(file)
         reps = is_repeating(trans)
         
+        '''
         # emotion recognition only works is there is speech
         if not is_screaming: 
             emotion = emotion_recognition(file)
-
+        '''
+        
         distress = 0   # if distressed or not
         repeating = 0
 
+        '''
         if is_screaming:
             distress = 1
             distress_count += 1
-
+        '''
         if reps > 0:
             repeating = 1
             repetitions += reps

@@ -39,10 +39,10 @@ def document_query(query):
     llm=CTransformers(model="llama2\llama-2-7b-chat.ggmlv3.q4_0.bin",
                     model_type="llama",
                     config={'max_new_tokens':128,
-                            'temperature':0.01},)
+                            'temperature':0.001},)
 
     template="""Use the following pieces of information to answer the user's question.
-    user ask for a summary of information about a mental health patient's activities during a specific day. please return list of moods, number of screams, number of repeated word, average response time, has patient failed to respond ?, number of related answer, number of unrelated answer.
+    user ask for a summary of information about a mental health patient's activities during a specific day. don't return Actual Output and Expected Output. return only answer. please return list of moods, number of screams, number of repeated word, average response time, has patient failed to respond ?, number of related answer, number of unrelated answer.
 
     Context:{context}
     Question:{question}
@@ -65,7 +65,7 @@ def document_query(query):
     return result
 
 '''
-res = document_query("give me summary about patient number 4 on 4th of october")
+res = document_query("give me summary about patient number 2 on 15th of november 2023")
 #text_to_speech(res)
 '''
 

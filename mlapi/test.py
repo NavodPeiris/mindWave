@@ -16,7 +16,14 @@ from write_summary_file import write_summary_file
 from sound_classifier import sound_classifier
 from scream_detection import scream_detection
 
-file_name = "recorded_samples/buwaneka_2760YmUD.wav"
+'''
+recorded_samples/buwaneka_scream.wav
+recorded_samples/alice_quest.wav
+examples/kawada_kawa_beheth_biwwada_kawe_na.wav
+examples/repeat/sorry_repeated.wav
+'''
+
+file_name = "examples/kawada_kawa_beheth_biwwada_kawe_na.wav"
 
 voice_detected = voice_activity(file_name)
 

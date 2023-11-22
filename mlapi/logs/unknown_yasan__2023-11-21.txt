@@ -1,0 +1,18 @@
+date: 2023-11-21
+
+log:
+
+dr_navod (13-13-44 : 13-13-45) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.70 s
+	response is related
+unknown (13-13-47 : 13-13-48) : කෑවා
+dr_rushika (13-13-50 : 13-13-51) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : You are another
+	response delay : 2.60 s
+	response is unrelated
+yasan (13-13-54 : 13-13-55) : ඔයා වෙන
+
+

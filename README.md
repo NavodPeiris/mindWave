@@ -98,8 +98,6 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 
 Now, you have successfully set up and run the MindWave project for detecting symptoms of mental health patients through voice data analysis.
 
-### train_scream_detection folder contains training data and script for training the `Scream Detection model`
-
 **Note:** Always run VSCode as an Administrator to avoid any interruptions during the execution of tasks.
 
 Enjoy using MindWave to make a positive impact on mental health!

@@ -1,0 +1,13 @@
+patient number: unknown
+patient name: unknown
+date: 2023-11-21
+
+summary:
+conversation
+list of moods patient had during day: 
+did patient screamed: False
+number of times patient repeated same word during day: 0
+average response time: 2.70 seconds
+number of times patient did not respond: 0
+number of times patient give a related answer: 1
+number of times patient give an unrelated answer: 0

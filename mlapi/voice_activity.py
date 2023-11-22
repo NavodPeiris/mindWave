@@ -18,5 +18,3 @@ def voice_activity(file):
             return True
     return False
 
-
-voice_activity("recorded_samples/2023-11-18_20-38-45.wav")

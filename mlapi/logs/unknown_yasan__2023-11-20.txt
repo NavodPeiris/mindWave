@@ -1,0 +1,18 @@
+date: 2023-11-20
+
+log:
+
+dr_navod (22-46-57 : 22-46-58) : කෑවද
+	question : Do you eat
+	response received : Ate
+	response delay : 2.70 s
+	response is related
+unknown (22-47-00 : 22-47-01) : කෑවා
+dr_rushika (22-47-03 : 22-47-04) : බෙහෙත් බිව්වද
+	question : Have you taken medicine?
+	response received : You are another
+	response delay : 2.60 s
+	response is unrelated
+yasan (22-47-07 : 22-47-08) : ඔයා වෙන
+
+
