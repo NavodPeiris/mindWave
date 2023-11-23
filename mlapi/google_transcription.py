@@ -6,7 +6,7 @@ speechClientV1 = speech.SpeechClient.from_service_account_file("key.json")
 # accurate 
 def sinhala_transcription(file_name):
     # google cloud speech to text
-
+    
     # Reads a file as bytes
     with open(file_name, "rb") as f:
         content = f.read()

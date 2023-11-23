@@ -1,0 +1,42 @@
+date: 2023-11-23
+
+log:
+
+unknown (20-27-17 : 20-27-47) : can we begin with a major breakthrough in the Israel hummus with these Riley cabinet has approved a deal to secure the release of dozens of hostages being held by Hamas in Gaza six weeks after they were abducted from Southern Israel a statement from the prime minister's office says at least fifty hostages women and children will be released over four days during which a pools in the fighting will be held the release of a
+	emotion : angry
+unknown (20-27-47 : 20-28-17) : Three additional ten hostages will result in one additional day in the pools. The deal was approved by Israel's cabinet after lengthy meeting that ran into the early hours ahead of the meeting with prime minister Benjamin Netanyahu said the war effort would continue even if a hostage agreement was struck. The deal has been welcomed by President Biden who says it should bring home additional American hostages.
+	emotion : angry
+unknown (20-28-17 : 20-28-47) : It is own statement hummus, which is considered a terrorist group by many Western governments says the fifty hostages will be released in exchange for 150 Palestinian women and children being held in Israeli jails in the past few moments, which helped broker. They still has set the starting time of the pools will be announced within 24 hours International correspondent. Aaron has more on the hostages.
+	emotion : angry
+unknown (20-28-47 : 20-28-51) : May be released unless I miss you. Hope the deal means that return.
+	emotion : angry
+unknown (20-28-53 : 20-28-56) : after six long weeks, there is hope
+	emotion : angry
+unknown (20-28-57 : 20-29-26) : Here are some of those who could soon be coming home. Oriana is for and loves football and ice cream and kefir just 10 months old who recently started crawling. He's always smiling relative say 10 almog is being held with three of her children including her to Young songs are husband and eldest daughter were killed by Hamas.
+	emotion : angry
+unknown (20-29-27 : 20-29-34) : Ken's brother Omri hopes to get his relatives back soon. He's been counting the dark days.
+	emotion : neutral
+unknown (20-29-35 : 20-29-44) : The Bad and the pain is behind we're going to live with this pain forever, but the good things is in the front of us and then they will come.
+	emotion : neutral
+unknown (20-29-44 : 20-29-47) : What is the first thing you would like to do when you're old together?
+	emotion : neutral
+unknown (20-29-48 : 20-29-56) : first to tell them I'm sorry because it said and it's a shame what happened and
+	emotion : neutral
+unknown (20-29-56 : 20-30-04) : Then that they love them you can't imagine hugs for so many days. So now it's when the time comes we going to do it.
+	emotion : neutral
+unknown (20-30-06 : 20-30-13) : In return Gaza, we'll get arrest by from Israel's are sold at least for a few days.
+	emotion : neutral
+unknown (20-30-14 : 20-30-17) : Israeli troops were still advancing today.
+	emotion : neutral
+unknown (20-30-19 : 20-30-30) : Food and fuel will be allowed into the rubble on some Palestinian women and children will be released from Israeli jails.
+	emotion : neutral
+unknown (20-30-32 : 20-30-35) : Israel's prime minister got a warm reception from these troops.
+	emotion : neutral
+unknown (20-30-36 : 20-30-37) : 
+	emotion : happy
+unknown (20-30-38 : 20-30-46) : Benjamin Netanyahu said releasing the hostages was a sacred duty, but the war wouldn't stop after they were freed.
+	emotion : angry
+unknown (20-30-48 : 20-31-03) : Tonight there's an empty place here at this table for everyone that is being held in Gaza. The first hostages could be released as early as Thursday or two here and BBC News Tel Aviv.
+	emotion : neutral
+
+

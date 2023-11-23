@@ -15,13 +15,6 @@ from write_summary_file import write_summary_file
 
 from scream_detection import scream_detection
 
-'''
-recorded_samples/buwaneka_scream.wav
-recorded_samples/alice_quest.wav
-examples/kawada_kawa_beheth_biwwada_kawe_na.wav
-examples/repeat/sorry_repeated.wav
-'''
-
 def core_analysis(file_name):
 
     is_screaming = scream_detection(file_name)
@@ -64,16 +57,44 @@ def core_analysis(file_name):
 
         start = round(turn.start, 1)
         end = round(turn.end, 1)
-        common.append([start, end, speaker])
 
-        # find different speakers
-        if speaker not in speaker_tags:
-            speaker_tags.append(speaker)
-            speakers[speaker] = []
+        if end - start > 30:
+            sub_end = start + 30
+            while sub_end <= end:
+                common.append([start, sub_end, speaker])
 
-        print(f"start={start}s stop={end}s speaker_{speaker}")
+                # find different speakers
+                if speaker not in speaker_tags:
+                    speaker_tags.append(speaker)
+                    speakers[speaker] = []
 
-        speakers[speaker].append([start, end, speaker])
+                print(f"start={start}s stop={sub_end}s speaker_{speaker}")
+
+                speakers[speaker].append([start, sub_end, speaker])
+                start = sub_end
+                sub_end = start + 30
+            
+            common.append([start, end, speaker])
+
+            # find different speakers
+            if speaker not in speaker_tags:
+                speaker_tags.append(speaker)
+                speakers[speaker] = []
+
+            print(f"start={start}s stop={end}s speaker_{speaker}")
+
+            speakers[speaker].append([start, end, speaker])
+        else:
+            common.append([start, end, speaker])
+
+            # find different speakers
+            if speaker not in speaker_tags:
+                speaker_tags.append(speaker)
+                speakers[speaker] = []
+
+            print(f"start={start}s stop={end}s speaker_{speaker}")
+
+            speakers[speaker].append([start, end, speaker])
 
         
             
@@ -201,6 +222,16 @@ def core_analysis(file_name):
     write_summary_file(common_segments, patient_metrics, speaker_tags, is_screaming)   
 
 
-# run this for testing   
+# samples for testing  
+'''
+# Samples:
+recorded_samples/buwaneka_scream.wav
+recorded_samples/alice_quest.wav
+examples/kawada_kawa_beheth_biwwada_kawe_na.wav
+examples/repeat/sorry_repeated.wav
+'''
 
-core_analysis("examples/long/english_long.wav")
+# run this for testing
+'''
+core_analysis("examples/kawada_kawa_beheth_biwwada_kawe_na.wav")
+'''
