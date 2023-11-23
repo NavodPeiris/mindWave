@@ -79,8 +79,10 @@ The MindWave project focuses on detecting symptoms of mental health patients thr
 [Llama-2-7B-Chat-GGML Model](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/blob/main/llama-2-7b-chat.ggmlv3.q4_0.bin)
 - Store the downloaded Llama2 model into a folder named "llama2" inside the `mlapi` directory.
 
-- Download scream detection model from following URL: 
-- place the scream_detection_model.h5 in a folder called "scream_detection_models" inside the mlapi directory
+- Download scream detection model from following URL if not found in "scream_detection_models" folder: 
+    https://drive.google.com/file/d/1CbtLptAF_RxJrbfdZczAwoAnCItDNFxR/view?usp=sharing
+    
+- place the model in a folder called "scream_detection_models" inside the mlapi directory
 
 ### 2.3 Permissions Setup
 

@@ -1,30 +1,15 @@
 import os
-from pyannote.audio import Pipeline
 import wave
-from transformers import pipeline
 import pyaudio
 import socket
 import threading
 from time import sleep
-import struct
 from datetime import datetime, timedelta
 import shutil
 
-from hf_access import ACCESS_TOKEN
-from bandpass_filter import bandpass_filter
-from wav_segmenter import wav_file_segmentation_doc, wav_file_segmentation_patient
-from unintelligent_speech import unintelligent_speech
-from speaker_recognition import speaker_recognition
-from voice_activity import voice_activity
-from re_encode import re_encode
-from convert_to_mono import convert_to_mono
-from write_log_file import write_log_file
-from write_summary_file import write_summary_file
 from reduce_noise import reduce_noise
 
 from test import core_analysis
-
-from scream_detection import scream_detection
 
 # this will run in a thread reading audio from the tcp socket and buffering it
 buffer = []
