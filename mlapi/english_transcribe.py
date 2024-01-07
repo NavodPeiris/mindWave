@@ -28,6 +28,6 @@ def eng_transcribe(file):
     return transcription[0]
 
 '''
-trans = eng_transcribe("test_alice.wav")
+trans = eng_transcribe("examples/obama.wav")
 print(trans)
 '''

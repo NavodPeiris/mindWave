@@ -14,7 +14,7 @@ voice_folder = "voices"    # this folder act as a voice database
 if not os.path.exists(voice_folder):
     os.makedirs(voice_folder)
 
-voices = os.listdir(voice_folder)
+speakers = os.listdir(voice_folder)
 
 # recognize speaker name
 def speaker_recognition(file_name, segments, wildcards, prev_spk):
@@ -46,22 +46,27 @@ def speaker_recognition(file_name, segments, wildcards, prev_spk):
         if is_screaming:
             distress_count += 1
 
-        for voice in voices:
-            voice_file = voice_folder + "/" + voice
+        for speaker in speakers:
 
-            print(voice_file)
+            voices = os.listdir(voice_folder + "/" + speaker)
 
-            # compare voice file with audio file
-            score, prediction = verification.verify_files(voice_file, file)
-            prediction = prediction[0].item()
-            score = score[0].item()
+            for voice in voices:
+                voice_file = voice_folder + "/" + speaker + "/" + voice
 
-            if prediction == True:
-                if score >= max_score:
-                    max_score = score
-                    speakerId = voice.split(".")[0]  
-                    if speakerId not in wildcards:        # speaker_00 cannot be speaker_01
-                        person = speakerId
+                print(voice_file)
+
+                # compare voice file with audio file
+                score, prediction = verification.verify_files(voice_file, file)
+                prediction = prediction[0].item()
+                score = score[0].item()
+
+                if prediction == True:
+                    if score >= max_score:
+                        max_score = score
+                        speakerId = speaker.split(".")[0]
+                        print("speaker: ", speaker)  
+                        if speakerId not in wildcards:        # speaker_00 cannot be speaker_01
+                            person = speakerId
 
         Id_count[person] += 1
 
