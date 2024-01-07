@@ -1,14 +1,20 @@
 import os
 from pydub import AudioSegment
 from google_transcription import sinhala_transcription, english_transcription
-from emotion_recognition import emotion_recognition
+#from emotion_recognition import emotion_recognition
 from repeat_detection import is_repeating
 from alice_check import alice_check
 
+import subprocess
+import sys
+
+whisper_script = "whisper_sinhala.py"
+
 # segment according to speaker
-def wav_file_segmentation_doc(file_name, segments):
+def wav_file_segmentation_doc(file_name, segments, use_google_speech):
     # Load the WAV file
     audio = AudioSegment.from_file(file_name, format="wav")
+    trans = ""
 
     texts = []
 
@@ -29,7 +35,19 @@ def wav_file_segmentation_doc(file_name, segments):
         i = i + 1
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
-        trans = sinhala_transcription(file)  # get sinhala transcription
+
+        # get sinhala transcription
+        if use_google_speech:
+            trans = sinhala_transcription(file)  
+        else:
+            try:
+                # Run the test.py script in a subprocess and pass voice.wav as an argument
+                result = subprocess.Popen([sys.executable, whisper_script, file], stdout=subprocess.PIPE)
+                processed_text = result.stdout.read() 
+                trans = processed_text.decode('utf-8')
+    
+            except subprocess.CalledProcessError as e:
+                print(f"Error: {e}")
 
         print(trans)
 
@@ -46,11 +64,12 @@ def wav_file_segmentation_doc(file_name, segments):
 
 
 # segment according to speaker
-def wav_file_segmentation_patient(file_name, segments):
+def wav_file_segmentation_patient(file_name, segments, use_google_speech):
 
     # Load the WAV file
     audio = AudioSegment.from_file(file_name, format="wav")
-
+    trans = ""
+    
     texts = []
     
     distress_count = 0
@@ -72,8 +91,23 @@ def wav_file_segmentation_patient(file_name, segments):
         clip = audio[start:end]
         i = i + 1
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
+        print(file)
         clip.export(file, format="wav")
-        trans = sinhala_transcription(file)  # get sinhala transcription
+
+        # get sinhala transcription
+        if use_google_speech:
+            trans = sinhala_transcription(file)  
+        else:
+            try:
+                # Run the test.py script in a subprocess and pass voice.wav as an argument
+                result = subprocess.Popen([sys.executable, whisper_script, file], stdout=subprocess.PIPE)
+                processed_text = result.stdout.read() 
+                trans = processed_text.decode('utf-8')
+    
+            except subprocess.CalledProcessError as e:
+                print(f"Error: {e}")
+
+        print(trans)
         
         '''
         most of the time screams are not picked as speech segments from diarization model
@@ -89,7 +123,9 @@ def wav_file_segmentation_patient(file_name, segments):
         if not is_screaming: 
             emotion = emotion_recognition(file)
         '''
-        emotion = emotion_recognition(file)
+
+        # emotion recognition is not accurate
+        #emotion = emotion_recognition(file)
 
         distress = 0   # if distressed or not
         repeating = 0

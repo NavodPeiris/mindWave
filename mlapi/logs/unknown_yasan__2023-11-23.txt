@@ -2,17 +2,19 @@ date: 2023-11-23
 
 log:
 
-dr_navod (17-40-37 : 17-40-38) : කෑවද
+dr_navod (23-52-24 : 23-52-25) : කෑවද
 	question : Do you eat
 	response received : Ate
 	response delay : 2.70 s
 	response is related
-unknown (17-40-40 : 17-40-41) : කෑවා
-dr_rushika (17-40-43 : 17-40-44) : බෙහෙත් බිව්වද
+unknown (23-52-27 : 23-52-28) : කෑවා
+	emotion : neutral
+dr_rushika (23-52-30 : 23-52-31) : බෙහෙත් බිව්වද
 	question : Have you taken medicine?
 	response received : You are another
 	response delay : 2.60 s
 	response is unrelated
-yasan (17-40-47 : 17-40-48) : ඔයා වෙන
+yasan (23-52-34 : 23-52-35) : ඔයා වෙන
+	emotion : neutral
 
 

@@ -1,0 +1,12 @@
+date: 2024-01-07
+
+log:
+
+dr_navod (15-58-09 : 15-58-10) : කෑව ද?
+	question : Ate?
+	patient not responding
+unknown (15-58-12 : 15-58-13) : 
+dr_rushika (15-58-15 : 15-58-16) : බෙහෙත් බිව්ව අද
+yasan (15-58-19 : 15-58-20) : හා වෙනෑ.
+
+

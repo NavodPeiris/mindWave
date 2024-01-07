@@ -9,7 +9,7 @@ import shutil
 
 from reduce_noise import reduce_noise
 
-from test import core_analysis
+from core_analysis import core_analysis
 
 # this will run in a thread reading audio from the tcp socket and buffering it
 buffer = []
@@ -130,8 +130,8 @@ def analyze():
 
             # reducing noise in the file
             reduce_noise(file_name)
-
-            core_analysis(file_name)
+            
+            core_analysis(file_name, use_google_speech=False)
 
             # Delete the processed file
             os.remove(file_name)

@@ -4,7 +4,7 @@ date: 2023-11-23
 
 summary:
 conversation
-list of moods patient had during day: 
+list of moods patient had during day: neutral, 
 did patient screamed: False
 number of times patient repeated same word during day: 0
 average response time: 2.60 seconds
