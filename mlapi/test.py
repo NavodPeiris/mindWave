@@ -9,4 +9,4 @@ examples/kawada_kawa_beheth_biwwada_kawe_na.wav
 examples/repeat/sorry_repeated.wav
 '''
 
-core_analysis("examples/kawada_kawa_beheth_biwwada_kawe_na.wav", use_google_speech=False)
+core_analysis("examples/obama_zach.wav", use_google_speech=False)

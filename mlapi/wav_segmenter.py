@@ -36,26 +36,29 @@ def wav_file_segmentation_doc(file_name, segments, use_google_speech):
         file = folder_name + "/" + "segment"+ str(i) + ".wav"
         clip.export(file, format="wav")
 
-        # get sinhala transcription
-        if use_google_speech:
-            trans = sinhala_transcription(file)  
-        else:
-            try:
-                # Run the test.py script in a subprocess and pass voice.wav as an argument
-                result = subprocess.Popen([sys.executable, whisper_script, file], stdout=subprocess.PIPE)
-                processed_text = result.stdout.read() 
-                trans = processed_text.decode('utf-8')
-    
-            except subprocess.CalledProcessError as e:
-                print(f"Error: {e}")
+        try:
+            # get sinhala transcription
+            if use_google_speech:
+                trans = sinhala_transcription(file)  
+            else:
+                try:
+                    # Run the test.py script in a subprocess and pass voice.wav as an argument
+                    result = subprocess.Popen([sys.executable, whisper_script, file], stdout=subprocess.PIPE)
+                    processed_text = result.stdout.read() 
+                    trans = processed_text.decode('utf-8')
+        
+                except subprocess.CalledProcessError as e:
+                    print(f"Error: {e}")
 
-        print(trans)
+            print(trans)
 
-        alice_check(file)
+            alice_check(file)
 
-        # return -> [[start time, end time, transcript, emotion, distress, repeating], [start time, end time, transcript,..], ..],
-        texts.append([segment[0], segment[1], trans, emotion, 0, 0])
-
+            # return -> [[start time, end time, transcript, emotion, distress, repeating], [start time, end time, transcript,..], ..],
+            texts.append([segment[0], segment[1], trans, emotion, 0, 0])
+        except:
+            pass
+        
         # Delete the WAV file after processing
         os.remove(file)
 
